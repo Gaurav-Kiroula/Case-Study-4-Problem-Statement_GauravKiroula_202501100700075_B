@@ -1,84 +1,84 @@
 #Casestudy4_GauravKiroula_202501100700075_B
-# Task 1: Basic File Reading
+# Case Study 4: Debugged and Final Version
 filename = "CS4.txt"
 
-print("--- Task 1: Basic File Reading ---")
 try:
-    # Reading entire content to demonstrate read()
+    # --- Task 1: Basic File Reading ---
+    # Using read() for full content
     with open(filename, 'r') as f:
-        full_content = f.read()
-    
-    # Reading lines to demonstrate readlines() and count totals
-    with open(filename, 'r') as f:
-        lines = f.readlines()
-    
-    total_lines = len(lines)
-    print(f"Total number of lines: {total_lines}")
-    
-    # Printing first and last 2 lines
-    print(f"First 2 lines:\n{''.join(lines[:2])}")
-    print(f"Last 2 lines:\n{''.join(lines[-2:])}")
+        full_data = f.read()
 
-    # Task 2: Log Classification
-    print("\n--- Task 2: Log Classification ---")
+    # Using readline() for specific lines
+    with open(filename, 'r') as f:
+        first_line = f.readline()
+        second_line = f.readline()
+
+    # Using readlines() for total count
+    with open(filename, 'r') as f:
+        all_lines = f.readlines()
+    
+    print(f"Total number of lines: {len(all_lines)}")
+    print(f"First 2 lines:\n{first_line}{second_line}")
+    print(f"Last 2 lines:\n{''.join(all_lines[-2:])}")
+
+    # --- Task 2: Log Classification ---
+    # Keywords: INFO, WARNING, ERROR
     log_counts = {"INFO": 0, "WARNING": 0, "ERROR": 0}
-    for line in lines:
+    for line in all_lines:
         for key in log_counts.keys():
             if key in line:
                 log_counts[key] += 1
-    print(f"Stored Results in Dictionary: {log_counts}")
+    print(f"\nLog Summary: {log_counts}")
 
-    # Task 3: Write Filtered Files
-    print("\n--- Task 3: Write Filtered Files ---")
-    # Using list comprehensions to filter
-    info_logs = [line for line in lines if "INFO" in line]
-    warning_logs = [line for line in lines if "WARNING" in line]
-    error_logs = [line for line in lines if "ERROR" in line]
+    # --- Task 3: Write Filtered Files ---
+    # Filtering lists
+    info_list = [l for l in all_lines if "INFO" in l]
+    warn_list = [l for l in all_lines if "WARNING" in l]
+    err_list = [l for l in all_lines if "ERROR" in l]
 
-    # Writing using writelines() and write() as requested
+    # Use writelines() for lists and write() for joined strings
     with open("info_logs.txt", "w") as f:
-        f.writelines(info_logs)
-    
+        f.writelines(info_list)
     with open("warning_logs.txt", "w") as f:
-        f.write("".join(warning_logs))
-        
+        f.write("".join(warn_list))
     with open("error_logs.txt", "w") as f:
-        f.writelines(error_logs)
-    print("Files 'info_logs.txt', 'warning_logs.txt', and 'error_logs.txt' created.")
+        f.writelines(err_list)
+    print("\nFiltered files (info, warning, error) have been created.")
 
-    # Task 4: Search Feature
-    print("\n--- Task 4: Search Feature ---")
-    search_key = input("Enter keyword to search (e.g., ERROR): ")
-    matching_lines = [line for line in lines if search_key.upper() in line.upper()]
+    # --- Task 4: Search Feature ---
+    search_query = input("\nEnter keyword to search: ")
+    # Case-insensitive matching for better user experience
+    matches = [l for l in all_lines if search_query.upper() in l.upper()]
     
-    print(f"Matches found for '{search_key}':")
-    for match in matching_lines:
-        print(match.strip())
+    print(f"Matches for '{search_query}':")
+    for m in matches:
+        print(m.strip())
         
     with open("search_result.txt", "w") as f:
-        f.writelines(matching_lines)
+        f.writelines(matches)
 
-    # File Pointer (seek) Operations
-    print("\n--- File Pointer (seek) Operations ---")
-    # Using 'rb' (read binary) mode for backward seeking
+    # --- File Pointer (seek) Operations ---
+    print("\n--- Performing Seek Operations ---")
+    # Must use 'rb' for seeking from the end
     with open(filename, 'rb') as f:
         # Read first 50 characters
-        first_50 = f.read(50).decode()
-        print(f"First 50 characters: {first_50}")
+        print(f"First 50 chars: {f.read(50).decode().strip()}")
         
-        # Move pointer to Beginning
+        # Beginning -> seek(0)
         f.seek(0)
-        print(f"Content at Beginning: {f.read(20).decode()}...")
+        print(f"At Beginning (seek 0): {f.read(15).decode()}...")
         
-        # Move pointer to Middle (Calculating size without 'os' module)
-        f.seek(0, 2)            # Seek to end (position 2)
-        file_size = f.tell()    # Get current position (size)
-        f.seek(file_size // 2)  # Seek to middle
-        print(f"Content at Middle: {f.read(20).decode()}...")
+        # Middle -> seek(len//2)
+        f.seek(0, 2) # Go to end
+        size = f.tell()
+        f.seek(size // 2)
+        print(f"At Middle: ...{f.read(20).decode()}...")
         
-        # Move pointer to Last 100 chars
-        f.seek(-100, 2)         # -100 from the end (position 2)
-        print(f"Content at Last 100: ...{f.read().decode().strip()}")
+        # Last 100 chars -> seek(-100, 2)
+        f.seek(-100, 2)
+        print(f"Last 100 chars: {f.read().decode().strip()}")
 
 except FileNotFoundError:
-    print(f"Error: The file '{filename}' was not found.")
+    print(f"Error: '{filename}' not found. Please ensure it is in the same folder.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
