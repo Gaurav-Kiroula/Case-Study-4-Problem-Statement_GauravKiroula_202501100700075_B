@@ -1,25 +1,16 @@
 # Case-Study-4-Problem-Statement_GauravKiroula_202501100700075_B
-# Case Study 4: Log Management System
+## Case Study 4: Log Analysis System
 
-## Overview
-This script processes log files to categorize data based on severity levels and demonstrates advanced file handling techniques in Python, specifically focusing on file pointer manipulation[cite: 1].
+## Execution Guide
+This script automates the processing of `CS4.txt`. It identifies log levels, partitions data into separate files, and performs a keyword search[cite: 1].
 
-## Requirements
-* Python 3.x
-* A source file named `CS4.txt` in the same directory[cite: 1].
+## Debugging Notes
+*   **Pointer Reliability**: The script uses binary mode (`rb`) for seek operations to allow backward movement from the end of the file, preventing common Python I/O errors[cite: 1].
+*   **Memory Efficiency**: Uses list comprehensions for fast filtering of INFO, WARNING, and ERROR logs[cite: 1].
+*   **Search**: The search tool is case-insensitive to ensure "error" finds "ERROR" entries[cite: 1].
 
-## Features Included
-1.  **File Reading**: Utilizes `read()`, `readline()`, and `readlines()` to extract data[cite: 1].
-2.  **Classification**: Scans logs for keywords (INFO, WARNING, ERROR) and counts them using a dictionary[cite: 1].
-3.  **Filtering**: Automatically generates separate text files for each log level[cite: 1].
-4.  **Search**: Allows users to query specific terms and saves the output to `search_result.txt`[cite: 1].
-5.  **Pointer Manipulation**: Uses `seek()` and `tell()` to navigate the file without external modules[cite: 1].
-
-## Submission Files
-According to the **Problem Statement for CS4.docx**, the following should be zipped:
-* `case_study_4.py`
-* `info_logs.txt`
-* `warning_logs.txt`
-* `error_logs.txt`
-* `search_result.txt`
-* Screenshot of the execution output[cite: 1].
+## Final Submission Checklist
+1.  Run the script to generate `info_logs.txt`, `warning_logs.txt`, `error_logs.txt`, and `search_result.txt`[cite: 1].
+2.  Take a screenshot of the terminal output showing the "Seek Operations" results[cite: 1].
+3.  Zip the `.py` file, the four `.txt` files, and the screenshot[cite: 1].
+4.  Submit via the Google Form by **5th May 2026**[cite: 1].
